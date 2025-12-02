@@ -23,21 +23,16 @@ public class Day2 extends Day {
     return s.length() % 2 == 0 && s.substring(0, s.length() / 2).equals(s.substring(s.length() / 2));
   }
 
-  long invalidSum(List<Long> range, Function<Long, Boolean> isInvalid) {
-    return LongStream.range(range.getFirst(), range.getLast() + 1)
-        .filter(isInvalid::apply)
-        .sum();
-  }
-
-  long allInvalid(Function<Long, Boolean> isInvalid) {
+  long invalidSum(Function<Long, Boolean> isInvalid) {
     return Support.partition(longs(data), 2)
-        .mapToLong(range -> invalidSum(range, isInvalid))
+        .flatMapToLong(pair -> LongStream.rangeClosed(pair.getFirst(), pair.getLast()))
+        .filter(isInvalid::apply)
         .sum();
   }
 
   @Override
   String part1() {
-    return String.valueOf(allInvalid(this::isInvalid));
+    return String.valueOf(invalidSum(this::isInvalid));
   }
 
   boolean isInvalid2(long l) {
@@ -52,7 +47,7 @@ public class Day2 extends Day {
 
   @Override
   String part2() {
-    return String.valueOf(allInvalid(this::isInvalid2));
+    return String.valueOf(invalidSum(this::isInvalid2));
   }
 
   public static void main(String[] args) {

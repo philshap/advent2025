@@ -2,12 +2,16 @@ package advent2025;
 
 import java.util.Objects;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Main {
 
+  private static Stream<String> days() {
+    return IntStream.range(1, 12).mapToObj("advent2025.Day%s"::formatted);
+  }
+
   private void runDays() {
-    IntStream.range(1, 25)
-        .mapToObj("advent2025.Day%s"::formatted)
+    days()
         .map(name -> {
           try {
             return (Day) Class.forName(name).getDeclaredConstructors()[0].newInstance();
@@ -20,8 +24,7 @@ public class Main {
   }
 
   private void testDays() {
-    IntStream.range(1, 25)
-        .mapToObj("advent2025.Day%s"::formatted)
+    days()
         .forEach(name -> {
           try {
             Class.forName(name).getMethod("main", String[].class).invoke(null, (Object) null);
