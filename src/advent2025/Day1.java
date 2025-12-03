@@ -52,7 +52,7 @@ public class Day1 extends Day {
     return String.valueOf(numZeros);
   }
 
-  public static void main(String[] args) {
+  static void main() {
     Day day = new Day1() {
       @Override
       String getData() {

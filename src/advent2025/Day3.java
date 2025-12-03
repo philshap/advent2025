@@ -35,7 +35,7 @@ public class Day3 extends Day {
     return String.valueOf(total);
   }
 
-  public static void main(String[] args) {
+  static void main() {
     Day day = new Day3() {
       @Override
       String getData() {

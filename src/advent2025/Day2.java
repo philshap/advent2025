@@ -50,7 +50,7 @@ public class Day2 extends Day {
     return String.valueOf(invalidSum(this::isInvalid2));
   }
 
-  public static void main(String[] args) {
+  static void main() {
     Day day = new Day2() {
       @Override
       String getData() {
