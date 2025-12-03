@@ -17,9 +17,9 @@ public class Day1 extends Day {
       if (dial > 99) {
         dial %= 100;
       } else if (dial < 0) {
-        dial = 100 - (-dial % 100);
+        dial = ((dial % 100) + 100) % 100;
       }
-      if (dial == 0 || dial == 100) {
+      if (dial == 0) {
         numZeros++;
       }
     }
@@ -36,14 +36,17 @@ public class Day1 extends Day {
         numZeros += dial / 100;
         dial %= 100;
       } else {
-        while (offset++ != 0) {
-          if (--dial == 0) {
+        int sum = dial + offset;
+        int next = (sum % 100 + 100) % 100;
+        if (sum < 0) {
+          numZeros += -sum / 100;
+          if (dial != 0) {
             numZeros++;
           }
-          if (dial == -1) {
-            dial = 99;
-          }
+        } else if (next == 0) {
+          numZeros++;
         }
+        dial = next;
       }
     }
     return String.valueOf(numZeros);
