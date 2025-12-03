@@ -1,5 +1,6 @@
 package advent2025;
 
+import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -27,14 +28,16 @@ public class Main {
     days()
         .forEach(name -> {
           try {
-            Class.forName(name).getMethod("main", String[].class).invoke(null, (Object) null);
+            Method main = Class.forName(name).getDeclaredMethod("main");
+            main.setAccessible(true);
+            main.invoke(null);
           } catch (Exception e) {
             // ignore errors
           }
         });
   }
 
-  public static void main(String[] args) {
+  static void main(String[] args) {
     if (args.length == 1 && args[0].equals("test")) {
       new Main().testDays();
     } else {
