@@ -10,7 +10,7 @@ public class Day3 extends Day {
 
   record Battery(int pos, int jolt) {}
 
-  long maxJoltage2(String bank, int digits) {
+  long maxJoltage(String bank, int digits) {
     long joltage = 0;
     int offset = 0;
     for (int i = 0; i < digits; i++) {
@@ -25,13 +25,13 @@ public class Day3 extends Day {
 
   @Override
   String part1() {
-    long total = input.stream().mapToLong(bank -> maxJoltage2(bank, 2)).sum();
+    long total = input.stream().mapToLong(bank -> maxJoltage(bank, 2)).sum();
     return String.valueOf(total);
   }
 
   @Override
   String part2() {
-    long total = input.stream().mapToLong(bank -> maxJoltage2(bank, 12)).sum();
+    long total = input.stream().mapToLong(bank -> maxJoltage(bank, 12)).sum();
     return String.valueOf(total);
   }
 
