@@ -7,7 +7,6 @@ To run from the command line:
 
 - compile:
 ```shell
-cd src
 javac -d out src/advent2025/*.java
 ```
 

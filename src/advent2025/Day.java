@@ -40,8 +40,8 @@ public abstract class Day {
   record PartRun(String result, String duration) {
     static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("s.SSSSS");
 
-    void print(int number, String expected) {
-      System.out.printf("day %s part 1: (%s) %s%n", number, duration, compare(expected, result));
+    void print(int number, int part, String expected) {
+      System.out.printf("day %s part %s: (%s) %s%n", number, part, duration, compare(expected, result));
     }
 
     static PartRun run(Supplier<String> part) {
@@ -54,8 +54,8 @@ public abstract class Day {
   }
 
   void run(String part1, String part2) {
-    PartRun.run(this::part1).print(1, part1);
-    PartRun.run(this::part2).print(2, part2);
+    PartRun.run(this::part1).print(number, 1, part1);
+    PartRun.run(this::part2).print(number, 2, part2);
   }
 
   private static final String INPUT_URL = "https://adventofcode.com/2025/day/%d/input";

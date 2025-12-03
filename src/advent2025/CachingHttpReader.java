@@ -6,10 +6,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 class CachingHttpReader {
-  private static final Path CACHE = Paths.get("resources/cache");
+  private static final Path CACHE = Path.of("resources/cache");
 
   static String getData(URL url) {
     try {
