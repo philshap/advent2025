@@ -37,11 +37,11 @@ public class Main {
         });
   }
 
-  static void main(String[] args) {
+  void main(String[] args) {
     if (args.length == 1 && args[0].equals("test")) {
-      new Main().testDays();
+      testDays();
     } else {
-      new Main().runDays();
+      runDays();
     }
   }
 }

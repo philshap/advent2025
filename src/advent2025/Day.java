@@ -41,7 +41,7 @@ public abstract class Day {
     static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("s.SSSSS");
 
     void print(int number, int part, String expected) {
-      System.out.printf("day %s part %s: (%s) %s%n", number, part, duration, compare(expected, result));
+      System.out.printf("day %2s part %s: (%s) %s%n", number, part, duration, compare(expected, result));
     }
 
     static PartRun run(Supplier<String> part) {

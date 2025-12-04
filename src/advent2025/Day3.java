@@ -13,8 +13,8 @@ public class Day3 extends Day {
   long maxJoltage(String bank, int digits) {
     long joltage = 0;
     int offset = 0;
-    for (int i = 0; i < digits; i++) {
-      Battery battery = IntStream.range(offset, bank.length() - (digits - i) + 1)
+    for (int i = digits - 1; i >= 0; i--) {
+      Battery battery = IntStream.range(offset, bank.length() - i)
           .mapToObj(pos -> new Battery(pos, bank.charAt(pos) - '0'))
           .max(Comparator.comparing(Battery::jolt)).orElseThrow();
       joltage = battery.jolt + joltage * 10;
