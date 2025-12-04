@@ -2,8 +2,10 @@ package advent2025;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -21,5 +23,9 @@ public interface Support {
 
   static List<String> splitInput(String input) {
     return Arrays.asList(input.split("\n"));
+  }
+
+  static <K, V> Map<V, K> reverseMap(Map<K, V> map) {
+    return map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
   }
 }
