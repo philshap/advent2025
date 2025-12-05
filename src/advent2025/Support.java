@@ -21,6 +21,10 @@ public interface Support {
     return NUMBER.matcher(input).results().map(MatchResult::group).map(Integer::parseInt).toList();
   }
 
+  static Stream<Long> longs(String input) {
+    return NUMBER.matcher(input).results().map(MatchResult::group).map(Long::parseLong);
+  }
+
   static List<String> splitInput(String input) {
     return Arrays.asList(input.split("\n"));
   }
