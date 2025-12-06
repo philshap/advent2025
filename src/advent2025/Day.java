@@ -19,7 +19,7 @@ public abstract class Day {
 
   protected Day(int number) {
     this.number = number;
-    this.data = getData().trim();
+    this.data = getData();
     this.input = Support.splitInput(data);
   }
 

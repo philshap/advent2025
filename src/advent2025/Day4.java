@@ -36,8 +36,8 @@ public class Day4 extends Day {
     Grid grid = new Grid(input);
     Grid allMoved =
         Stream.iterate(Pair.of(grid, grid.removeRolls()), pair -> Pair.of(pair.r(), pair.r().removeRolls()))
-        .dropWhile(pair -> !pair.l().equals(pair.r()))
-        .findFirst().orElseThrow().l();
+            .dropWhile(pair -> !pair.l().equals(pair.r()))
+            .findFirst().orElseThrow().l();
     return String.valueOf(grid.rolls.size() - allMoved.rolls.size());
   }
 
