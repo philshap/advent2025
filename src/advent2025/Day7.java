@@ -23,7 +23,7 @@ public class Day7 extends Day {
 
     Set<Pos> split(Pos pos) {
       if (splitters.contains(pos)) {
-        return Set.of((pos.plus(Pos.L)), (pos.plus(Pos.R)));
+        return Set.of(pos.plus(Pos.L), pos.plus(Pos.R));
       }
       return Set.of(pos);
     }
@@ -50,8 +50,8 @@ public class Day7 extends Day {
     Set<Pos> beams = Set.of(diagram.start);
     int[] splits = {0};
     for (int i = 0; i < diagram.height; i++) {
-      beams = beams.stream().map(Pos.D::plus).flatMap(pos -> {
-        var split = diagram.split(pos);
+      beams = beams.stream().flatMap(pos -> {
+        var split = diagram.split(pos.plus(Pos.D));
         if (split.size() == 2) {
           splits[0]++;
         }

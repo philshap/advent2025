@@ -41,13 +41,13 @@ public class Day6 extends Day {
     long sum = 0;
     int column = width - 1;
     int row = 0;
-    StringBuilder digit = new StringBuilder();
+    int number = 0;
     List<Integer> numbers = new ArrayList<>();
     while (column >= 0) {
       char ch = data.charAt(column + row * (width + 1));
       if (row == opRow) {
-        numbers.add(Integer.parseInt(digit.toString().trim()));
-        digit.delete(0, digit.length());
+        numbers.add(number);
+        number = 0;
         if (ch == '+') {
           sum += numbers.stream().mapToLong(Integer::longValue).sum();
           numbers.clear();
@@ -60,7 +60,9 @@ public class Day6 extends Day {
         row = 0;
         column--;
       } else {
-        digit.append(ch);
+        if (ch != ' ') {
+          number = number * 10 + ch - '0';
+        }
         row++;
       }
     }
