@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public class Main {
 
   private static Stream<String> days() {
-    return IntStream.range(1, 12).mapToObj("advent2025.Day%s"::formatted);
+    return IntStream.range(1, 13).mapToObj("advent2025.Day%s"::formatted);
   }
 
   private void runDays() {
