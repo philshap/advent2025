@@ -44,8 +44,20 @@ public class Day9 extends Day {
       }
       return box.min.y() < min.y() && min.y() < box.max.y() && box.min.x() < max.x() && min.x() < box.max.x();
     }
+
+    // Return the points inside each of the four corners
+    Stream<Pos> insideCorners() {
+      // Not correct for flat boxes, assume the largest box isn't flat.
+      return Stream.of(new Pos(min.x() + 1, min.y() + 1),
+          new Pos(min.x() + 1, max.y() - 1),
+          new Pos(max.x() - 1, min.y() + 1),
+          new Pos(max.x() - 1, max.y() - 1));
+    }
   }
 
+  // Check if a box is inside a perimeter. To limit the number of points checked,
+  // - check each point inside each of the four box corners
+  // - then check to see if any box edge is crossed by a perimeter line
   record Perimeter(List<Line> lines) {
     // A point is inside the perimeter if there's an odd number of line crossings between
     // it and a point outside the perimeter.
@@ -62,22 +74,9 @@ public class Day9 extends Day {
       return lines.stream().noneMatch(line -> line.crossBox(box));
     }
 
-    Stream<Pos> insideCorners(Line box) {
-      // Not correct for flat boxes, assume the largest box isn't flat.
-      return Stream.of(new Pos(box.min.x() + 1, box.min.y() + 1),
-          new Pos(box.min.x() + 1, box.max.y() - 1),
-          new Pos(box.max.x() - 1, box.min.y() + 1),
-          new Pos(box.max.x() - 1, box.max.y() - 1));
-    }
-
-    // Return true if box is inside the perimeter.
-    // To limit the number of points checked:
-    // - check each point inside each of the four corners
-    // - next, check to see if any edge is crossed by a perimeter line
     boolean inside(List<Pos> box) {
-      // Pair is a box not a line but Line is useful for min/max APIs.
-      Line candidate = new Line(box);
-      return insideCorners(candidate).allMatch(this::isInside) && noEdgeCrossings(candidate);
+      // Line is useful for min/max APIs.
+      return new Line(box).insideCorners().allMatch(this::isInside) && noEdgeCrossings(new Line(box));
     }
   }
 
