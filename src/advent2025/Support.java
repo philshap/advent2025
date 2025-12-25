@@ -14,8 +14,14 @@ public interface Support {
   Pattern NUMBER = Pattern.compile("(-?\\d+)");
 
   static <T> Stream<List<T>> partition(List<T> source, int length) {
-    return IntStream.range(0, source.size() / length).mapToObj(
-        n -> source.subList(n * length, n * length + length));
+    return IntStream.range(0, source.size() / length)
+        .mapToObj(n -> source.subList(n * length, n * length + length));
+  }
+
+  static <T> Stream<List<T>> partition(List<T> source, int length, int overlap) {
+    int step = length - overlap;
+    return IntStream.range(0, (source.size() - overlap + step - 1) / step)
+        .mapToObj(n -> source.subList(n * step, n * step + length));
   }
 
   static List<Integer> integers(String input) {
