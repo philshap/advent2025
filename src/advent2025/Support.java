@@ -14,8 +14,7 @@ public interface Support {
   Pattern NUMBER = Pattern.compile("(-?\\d+)");
 
   static <T> Stream<List<T>> partition(List<T> source, int length) {
-    return IntStream.range(0, source.size() / length)
-        .mapToObj(n -> source.subList(n * length, n * length + length));
+    return partition(source, length, 0);
   }
 
   static <T> Stream<List<T>> partition(List<T> source, int length, int overlap) {
@@ -45,9 +44,5 @@ public interface Support {
     result = func.apply(input);
     cache.put(input, result);
     return result;
-  }
-
-  static <K, V> Map<V, K> reverseMap(Map<K, V> map) {
-    return map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
   }
 }

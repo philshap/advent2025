@@ -76,7 +76,8 @@ public class Day9 extends Day {
 
     boolean inside(List<Pos> box) {
       // Line is useful for min/max APIs.
-      return new Line(box).insideCorners().allMatch(this::isInside) && noEdgeCrossings(new Line(box));
+      Line boxLine = new Line(box);
+      return boxLine.insideCorners().allMatch(this::isInside) && noEdgeCrossings(boxLine);
     }
   }
 
