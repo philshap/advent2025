@@ -36,11 +36,11 @@ public interface Support {
 
   ///  A computeIfAbsent that supports recursive functions.
   static <T, R> R computeIfAbsent(Map<T, R> cache, T input, Function<T, R> func) {
-    var result = cache.get(input);
-    if (result != null) {
-      return result;
+    // Support null func results
+    if (cache.containsKey(input)) {
+      return cache.get(input);
     }
-    result = func.apply(input);
+    var result = func.apply(input);
     cache.put(input, result);
     return result;
   }
