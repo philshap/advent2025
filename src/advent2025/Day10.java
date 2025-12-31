@@ -53,10 +53,10 @@ public class Day10 extends Day {
           .toArray();
     }
 
-    List<Integer> newDiv2Target(List<Integer> prevTarget, int pressesMask) {
-      List<Integer> target = new ArrayList<>(prevTarget);
+    List<Integer> newDiv2Target(List<Integer> target, int pressesMask) {
+      List<Integer> newTarget = new ArrayList<>(target);
 
-      int[] counts = new int[target.size()];
+      int[] counts = new int[newTarget.size()];
       for (int j = 0; pressesMask != 0; pressesMask >>>= 1, j++) {
         if ((pressesMask & 1) != 0) {
           for (int i : buttons.get(j)) {
@@ -65,18 +65,15 @@ public class Day10 extends Day {
         }
       }
 
-      for (int i = 0; i < target.size(); i++) {
-        if (counts[i] > target.get(i)) {
+      for (int i = 0; i < newTarget.size(); i++) {
+        int rem = newTarget.get(i) - counts[i];
+        if (rem < 0 || (rem & 1) == 1) {
           return List.of();
         }
-        int rem = target.get(i) - counts[i];
-        if ((rem & 1) == 1) {
-          return List.of();
-        }
-        target.set(i, rem / 2);
+        newTarget.set(i, rem / 2);
       }
 
-      return target;
+      return newTarget;
     }
 
     Integer pressesForJoltageMemo(List<Integer> target) {
