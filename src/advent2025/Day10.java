@@ -126,7 +126,7 @@ public class Day10 extends Day {
 
   @Override
   String part2() {
-    int presses = input.stream().map(Machine::new).mapToInt(Machine::pressesForJoltage).sum();
+    int presses = input.stream().map(Machine::new).parallel().mapToInt(Machine::pressesForJoltage).sum();
     return String.valueOf(presses);
   }
 
@@ -141,7 +141,5 @@ public class Day10 extends Day {
       }
     };
     day.run("7", "33");
-    day = new Day10();
-    day.run("530", "20172");
   }
 }
