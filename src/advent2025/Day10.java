@@ -53,10 +53,8 @@ public class Day10 extends Day {
           .toArray();
     }
 
-    List<Integer> newDiv2Target(List<Integer> target, int pressesMask) {
-      List<Integer> newTarget = new ArrayList<>(target);
-
-      int[] counts = new int[newTarget.size()];
+    List<Integer> div2Target(List<Integer> target, int pressesMask) {
+      int[] counts = new int[target.size()];
       for (int j = 0; pressesMask != 0; pressesMask >>>= 1, j++) {
         if ((pressesMask & 1) != 0) {
           for (int i : buttons.get(j)) {
@@ -65,12 +63,13 @@ public class Day10 extends Day {
         }
       }
 
-      for (int i = 0; i < newTarget.size(); i++) {
-        int rem = newTarget.get(i) - counts[i];
-        if (rem < 0 || (rem & 1) == 1) {
+      List<Integer> newTarget = new ArrayList<>();
+      for (int i = 0; i < target.size(); i++) {
+        int rem = target.get(i) - counts[i];
+        if (rem < 0 || rem % 2 != 0) {
           return List.of();
         }
-        newTarget.set(i, rem / 2);
+        newTarget.add(rem / 2);
       }
 
       return newTarget;
@@ -95,7 +94,7 @@ public class Day10 extends Day {
       var buttonPresses = allPressesForMask(mask);
       Integer best = null;
       for (int pressesMask : buttonPresses) {
-        var newTarget = newDiv2Target(target, pressesMask);
+        var newTarget = div2Target(target, pressesMask);
         if (newTarget.isEmpty()) {
           continue;
         }
